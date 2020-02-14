@@ -29,7 +29,7 @@ public:
 };
 #pragma endregion
 
-// Deklaration Klasse PKW
+// Deklaration Klasse PKW - abgeleitet von der Klasse Fahrzeug
 #pragma region Klasse PKW
 class Pkw : public Fahrzeug
 {
@@ -43,7 +43,22 @@ public:
 		Fahrzeug(kennzeichen, erstzulassung), hubraum(hubraum), leistung(leistung), schadstoffklasse(schadstoffklasse) {};
 	Pkw();
 	virtual void Print();
-	virtual Pkw *Copy();
+	virtual Fahrzeug *Copy();
+};
+#pragma endregion
+
+// Deklaration der Klasse Motorrad - abgeleitet von der Klasse Fahrzeug
+#pragma region Klasse Motorrad
+class Motorrad : public Fahrzeug {
+private:
+	int hubraum;
+
+public:
+	Motorrad(char *kennzeichen, int jahr, int hubraum) :
+		Fahrzeug(kennzeichen, jahr), hubraum(hubraum) {};
+	Motorrad();
+	virtual void Print();
+	virtual Fahrzeug *Copy();
 };
 #pragma endregion
 
