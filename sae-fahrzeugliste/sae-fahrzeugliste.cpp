@@ -85,6 +85,26 @@ int main()
 	AusgabeMenu();
 }
 
+inline Fahrzeug::Fahrzeug(char *k, int j)
+{
+	strcpy(kennzeichen, k);
+	erstzulassung = j;
+}
+
+Fahrzeug::Fahrzeug()
+{
+	cout << "Kennzeichen: ";
+	cin >> kennzeichen;
+}
+
+void Fahrzeug::Print()
+{
+	cout << endl << kennzeichen << endl;
+	cout << "Erstzulassung: \t\t" <<
+		erstzulassung << endl;
+}
+
+
 //Funktion um das Menu initial auszugeben
 void AusgabeMenu()
 {
