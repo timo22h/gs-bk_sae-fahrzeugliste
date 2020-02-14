@@ -31,3 +31,4 @@
 *.out
 *.app
 /sae-fahrzeugliste/.vs/sae-fahrzeugliste/v15
+/sae-fahrzeugliste/Debug
