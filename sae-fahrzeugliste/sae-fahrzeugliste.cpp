@@ -29,6 +29,24 @@ public:
 };
 #pragma endregion
 
+// Deklaration Klasse PKW
+#pragma region Klasse PKW
+class Pkw : public Fahrzeug
+{
+private:
+	int hubraum;
+	int leistung;
+	int schadstoffklasse;
+
+public:
+	Pkw(char *kennzeichen, int jahr, int hubraum, int leistung, short schadstoffklasse = 0) :
+		Fahrzeug(kennzeichen, erstzulassung), hubraum(hubraum), leistung(leistung), schadstoffklasse(schadstoffklasse) {};
+	Pkw();
+	virtual void Print();
+	virtual Pkw *Copy();
+};
+#pragma endregion
+
 int main()
 {
 	AusgabeMenu();
