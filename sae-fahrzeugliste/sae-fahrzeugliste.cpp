@@ -62,6 +62,24 @@ public:
 };
 #pragma endregion
 
+// Deklaration von Klasse Node
+#pragma region Klase Node
+class Node {
+private:
+	Fahrzeug *object;
+	Node *left, *right;
+	int CmpNode(Node *);
+
+public:
+	Node(Fahrzeug *obj) { object = obj->Copy();
+	left = right = NULL;
+	}
+	void Print();
+	Fahrzeug *Suchen(char *kennzeichen);
+	Node *AddObject(Fahrzeug *obj);
+};
+#pragma endregion
+
 int main()
 {
 	AusgabeMenu();
