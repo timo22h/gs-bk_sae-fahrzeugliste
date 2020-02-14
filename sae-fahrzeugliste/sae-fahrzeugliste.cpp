@@ -11,6 +11,24 @@ using namespace std;
 // Deklaration der globalen Methoden
 void AusgabeMenu();
 
+// Deklaration Klasse Fahrzeug
+#pragma region Klasse Fahrzeug
+class Fahrzeug {
+protected:
+	char kennzeichen[10];
+	int erstzulassung;
+
+public:
+	Fahrzeug(char *kennzeichen, int jahr);
+	Fahrzeug();
+	virtual void Print();
+	virtual Fahrzeug *Copy() = 0;
+	char *Kennzeichen() { return kennzeichen; };
+	//virtual double Steuer()=0;
+	//virtual int TUEV()=0;
+};
+#pragma endregion
+
 int main()
 {
 	AusgabeMenu();
