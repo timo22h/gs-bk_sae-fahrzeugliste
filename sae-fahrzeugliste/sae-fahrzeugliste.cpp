@@ -1,5 +1,29 @@
-// sae-fahrzeugliste.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+/*
+						SAE Projekt
+		Name: Timo Heyden
+		Klasse: E2FI3
+		Fachrichtung: SAE
+		Lehrer: Matthias Röhrl
+		Entwicklungsumgebungen:
+								Visual Studio 2017
+								Visual Studio Code
+		Kurze Beschreibung:
+							Bei diesem Projekt geht es um eine klene Verwaltung einer Fahrzeugliste.
+		Ausgangssituation:  
+							- Gesucht ist eine neue, übersichtliche und leicht erweiterbare Organisation
+							der verschiedenen Fahrzeugdaten
+							- zu erfassende Fahrzeugdaten von PKWs und Motorrädern sind unterschiedlich 
+							und sollen später für die Weiterverarbeitung (z.B. Steuerberechnung) auch 
+							unterschiedlich behandelt werden können.
+							=> für alle Fahrzeugtypen: Kennzeichen, Jahr der Erstzulassung
+							=> PKWs zusätzlich: Hubraum, Leistung, Schadstoffklasse
+							=> Motorräder zusätzlich: Hubraum, Leistung
+							- Entgegen dem alten System möchte man sich bei der reinen Verwaltung der Daten
+							(z.B. Datenablage, Suche nach Fahrzeugen gemäß Kennzeichen, etc.) nicht mehr
+							mit unterschiedlichen Fahrzeugtypen "herumschlagen"
+		Source Code und weitere Informationen:
+											  https://github.com/timo22h/gs-bk_sae-fahrzeugliste
+*/
 
 // Einbinden von Systembibliotheken
 #include "stdafx.h"
@@ -115,7 +139,7 @@ void AusgabeMenu()
 	cout << "4 = Loeschen eines Fahrzeugs" << endl;
 	
 	// Eventuell Berechnen von Steuern
-	cout << "5 = Berechnen von Steuern f�r ein bestimmtes Fahrzeug" << endl;
+	cout << "5 = Berechnen von Steuern f�r ein bestimmtes Fahrzeug" << endl;
 
 	cout << "Ihre Wahl: ";
 }
