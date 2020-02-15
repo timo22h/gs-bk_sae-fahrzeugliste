@@ -139,7 +139,7 @@ void AusgabeMenu()
 	cout << "4 = Loeschen eines Fahrzeugs" << endl;
 	
 	// Eventuell Berechnen von Steuern
-	cout << "5 = Berechnen von Steuern f�r ein bestimmtes Fahrzeug" << endl;
+	cout << "5 = Berechnen von Steuern fuer ein bestimmtes Fahrzeug" << endl;
 
 	cout << "Ihre Wahl: ";
 }
