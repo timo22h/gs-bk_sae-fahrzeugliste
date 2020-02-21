@@ -1,4 +1,4 @@
-/**
+/*
 						SAE Projekt
 		Name: Timo Heyden
 		Klasse: E2FI3
@@ -108,7 +108,7 @@ public:
 #pragma region Methoden Fahrzeug
 inline Fahrzeug::Fahrzeug(char *k, int j)
 {
-	strcpy(kennzeichen, k);
+	strcpy_s(kennzeichen, k);
 	erstzulassung = j;
 }
 
@@ -181,22 +181,96 @@ Fahrzeug* Motorrad::Copy()
 }
 #pragma endregion
 
+#pragma region binaerer Baum
+inline int Node::CmpNode(Node *node2)
+{
+	return strcmp(object->Kennzeichen(), node2->object->Kennzeichen());
+}
+
+Node *Node::AddObject(Fahrzeug *obj)
+{
+	Node *root = this;
+	int inserted = 0;
+	Node *newnode = new Node(obj);
+	// Erzeugen eines neuen Knotens mit einer identischen Kopie
+	// des angegebenen Objekts; ruft automatisch die jeweilige
+	// Copy-Funktion auf, siehe Konstruktor von Node
+
+	if (root == NULL) // Es ex. noch keine Wurzel des Baums!
+	{
+		return newnode;
+	}
+	do {
+		if (root->CmpNode(newnode) > 0)
+		{
+			// Gehört der neue Knoten in den linken oder rechten Teilbaum?
+			if (root->left == NULL)
+			{
+				// Blattkonten gefunden?
+				root->left = newnode;
+				inserted = 1;
+			}
+			else
+				root = root->left;
+		}
+		else
+			if (root->right == NULL)
+			{
+				root->right = newnode;
+				inserted = 1;
+			}
+			else
+				root = root->right;
+	} while (inserted == 0);
+	return this;
+}
+
+void Node::Print()
+{
+	if (left != NULL)
+		left->Print(); // Daten des li. Teilbaums ausgeben . Teilbaums ausgeben
+	object->Print(); // Ausgeben der Objektdaten
+	if (right != NULL)
+		right->Print(); // Daten des re. Teilbaums ausgeben
+}
+#pragma endregio
+
 //Funktion um das Menu initial auszugeben
 void AusgabeMenu()
 {
 	cout << "\nORGANISATION DER FAHRZEUGDATEN\n" << endl;
-	cout << "1 = Anlegen eines neuen Fahrzeugs" << endl;
-	cout << "2 = Suchen eines bestimmten Fahrzeugs" << endl;
-	cout << "3 = Ausgabe aller Fahrzeuge" << endl;
-	cout << "4 = Loeschen eines Fahrzeugs" << endl;
+	cout << "1 = Anlegen eines neuen PKWs" << endl;
+	cout << "2 = Anlegen eines neuen Motorrads" << endl;
+	cout << "3 = Suchen eines bestimmten Fahrzeugs" << endl;
+	cout << "4 = Ausgabe aller Fahrzeuge" << endl;
+	cout << "5 = Loeschen eines Fahrzeugs" << endl;
 	
 	// Eventuell Berechnen von Steuern
-	cout << "5 = Berechnen von Steuern fuer ein bestimmtes Fahrzeug" << endl;
+	cout << "6 = Berechnen von Steuern fuer ein bestimmtes Fahrzeug" << endl;
 
 	cout << "Ihre Wahl: ";
 }
 
 int main()
 {
-	AusgabeMenu();
+	int eingabe;
+	Node *root = NULL;
+
+	do {
+		AusgabeMenu();
+		cin >> eingabe;
+
+		switch (eingabe)
+		{
+		case 1:
+			root = root->AddObject(new Pkw);
+			break;
+		case 2:
+			root = root->AddObject(new Motorrad);
+			break;
+		case 4:
+			root->Print();
+			break;
+		}
+	} while (eingabe != 'x');
 }
