@@ -233,7 +233,7 @@ Fahrzeug *Node::Suchen(char *kennzeichen)
 	int suchstatus = 1;
 	Node *Start = this;
 
-	while (Start!=NULL && suchstatus!=0)
+	while (Start != NULL && suchstatus != 0)
 	{
 		suchstatus = strcmp(kennzeichen, Start->object->Kennzeichen());
 		if (suchstatus != 0) // Suche fotsetzen?
@@ -256,7 +256,6 @@ Fahrzeug *Node::Suchen(char *kennzeichen)
 	{
 		return Start->object;
 	}
-	
 }
 
 void Node::Print()
@@ -273,7 +272,7 @@ void Node::Print()
 void AusgabeMenu()
 {
 	cout << "\nORGANISATION DER FAHRZEUGDATEN\n"
-		 << endl;
+		<< endl;
 	cout << "1 = Anlegen eines neuen PKWs" << endl;
 	cout << "2 = Anlegen eines neuen Motorrads" << endl;
 	cout << "3 = Suchen eines bestimmten Fahrzeugs" << endl;
@@ -282,6 +281,7 @@ void AusgabeMenu()
 
 	// Eventuell Berechnen von Steuern
 	cout << "6 = Berechnen von Steuern fuer ein bestimmtes Fahrzeug" << endl;
+	cout << "7 = Programm beenden" << endl;
 
 	cout << "Ihre Wahl: ";
 }
@@ -289,7 +289,7 @@ void AusgabeMenu()
 int main()
 {
 	int eingabe;
-	Node *root = NULL;
+	Node* root = NULL;
 
 	do
 	{
@@ -301,20 +301,27 @@ int main()
 		case 1:
 			// Neuen PKW anlegen
 			root = root->AddObject(new Pkw);
+			cout << "\nEs wurde erfolgreich ein neuer PKW angelegt" << endl;
 			break;
 		case 2:
 			// Neues Motorrad anlegen
 			root = root->AddObject(new Motorrad);
+			cout << "\nEs wurde erfolgreich ein neues Motorrad angelegt" << endl;
 			break;
 		case 3:
 			// Suche nach Kennzeichen
-			char kennzeichen[10];
-			Fahrzeug *Fz;
+			char kennzeichen[11];
+			Fahrzeug* Fz;
+			cout << "Kennzeichen: ";
 			cin >> kennzeichen;
 			Fz = root->Suchen(kennzeichen);
 			if (Fz != NULL)
 			{
 				Fz->Print();
+			}
+			else
+			{
+				cout << "\nEs konnte leider kein Fahrzeug mit dem gewünschten Kennzeichen gefunden werden!\n";
 			}
 			break;
 		case 4:
@@ -326,8 +333,10 @@ int main()
 			break;
 		case 6:
 			break;
+		case 7:
+			delete root;
+			break;
 		}
-	} while (eingabe != 'x');
-	system("cls");
+	} while (eingabe != NULL && eingabe != 7);
 	system("pause");
 }
