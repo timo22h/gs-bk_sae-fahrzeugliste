@@ -104,11 +104,8 @@ public:
 };
 #pragma endregion
 
-int main()
-{
-	AusgabeMenu();
-}
-
+// Deklaration der Methoden
+#pragma region Methoden Fahrzeug
 inline Fahrzeug::Fahrzeug(char *k, int j)
 {
 	strcpy(kennzeichen, k);
@@ -119,6 +116,8 @@ Fahrzeug::Fahrzeug()
 {
 	cout << "Kennzeichen: ";
 	cin >> kennzeichen;
+	cout << "Jahr der Erstzulassung: ";
+	cin >> erstzulassung;
 }
 
 void Fahrzeug::Print()
@@ -127,7 +126,60 @@ void Fahrzeug::Print()
 	cout << "Erstzulassung: \t\t" <<
 		erstzulassung << endl;
 }
+#pragma endregion
 
+#pragma region Methoden PKW
+Pkw::Pkw()
+{
+	cout << "Humbraum:\t\t";
+	cin >> hubraum;
+	cout << "Leistung:\t\t";
+	cin >> leistung;
+	cout << "Schadstoffklasse:[0..2]\t";
+	cin >> schadstoffklasse;
+}
+
+void Pkw::Print()
+{
+	const char *Klassen[3] = { "Sauber", "Dreckschleuder", "Diesel" };
+	
+	// Ausgabe der Infos der Basisklasse Fahrzeug - ist unbedingt notwendig!
+	Fahrzeug::Print();
+
+	cout << "Typ: \t\t\tPKW\n";
+	cout << "Humbraum:\t\t" << hubraum << endl;
+	cout << "Leistung:\t\t" << leistung << endl;
+	cout << "Schadstoffklasse:[0..2]\t" << Klassen[schadstoffklasse] << endl;
+}
+
+Fahrzeug* Pkw::Copy()
+{
+	// liefert identische Kopie des aktuellen Objekts
+	return new Pkw(*this);
+}
+#pragma endregion
+
+#pragma region Methoden Motorrad
+Motorrad::Motorrad()
+{
+	// Konstruktor ohne Parameter
+	cout << "Hubraum:\t\t";
+	cin >> hubraum;
+}
+
+void Motorrad::Print()
+{
+	// Ausgabe der Infos der Basisklasse Fahrzeug - ist unbedingt notwendig!
+	Fahrzeug::Print();
+	cout << "Typ:\t\t\tMotorrad\n";
+	cout << "Hubraum:\t\t" << hubraum << endl;
+}
+
+Fahrzeug* Motorrad::Copy()
+{
+	return new Motorrad(*this);
+}
+#pragma endregion
 
 //Funktion um das Menu initial auszugeben
 void AusgabeMenu()
@@ -142,4 +194,9 @@ void AusgabeMenu()
 	cout << "5 = Berechnen von Steuern fuer ein bestimmtes Fahrzeug" << endl;
 
 	cout << "Ihre Wahl: ";
+}
+
+int main()
+{
+	AusgabeMenu();
 }
