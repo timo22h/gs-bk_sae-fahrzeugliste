@@ -106,6 +106,7 @@ public:
 	void Print();
 	Fahrzeug *Suchen(char *kennzeichen);
 	Node *AddObject(Fahrzeug *obj);
+	Fahrzeug *Loeschen(char *kennzeichen);
 };
 #pragma endregion
 
@@ -287,6 +288,11 @@ Fahrzeug *Node::Suchen(char *kennzeichen)
 	{
 		return Start->object; // Objekt mit dem gesuchten Kennzeichen wird zurückgegeben
 	}
+}
+
+Fahrzeug *Node::Loeschen(char *kennzeichen)
+{
+
 }
 
 void Node::Print()
