@@ -40,7 +40,7 @@ void AusgabeMenu();
 class Fahrzeug
 {
 protected:
-	char kennzeichen[10];
+	char kennzeichen[11];
 	int erstzulassung;
 
 public:
@@ -87,13 +87,15 @@ public:
 #pragma endregion
 
 // Deklaration von Klasse Node
+// Node ist die Liste in der das entsprechende Objekt gespeichert wird
+// Ebenfalls wird der Vor- und Nachfolger des Objektes gespeichert
 #pragma region Klase Node
 class Node
 {
 private:
-	Fahrzeug *object;
-	Node *left, *right;
-	int CmpNode(Node *);
+	Fahrzeug *object; // Das zu speichernde Objekt
+	Node *left, *right; // Vor- und Nachfolger
+	int CmpNode(Node *); // Vergleichen des Objektes
 
 public:
 	Node(Fahrzeug *obj)
@@ -111,12 +113,17 @@ public:
 #pragma region Methoden Fahrzeug
 inline Fahrzeug::Fahrzeug(char *k, int j)
 {
+	// Konstruktor mit Parametern
 	strcpy_s(kennzeichen, k);
 	erstzulassung = j;
 }
 
 Fahrzeug::Fahrzeug()
 {
+	// Konstruktor ohne Parameter
+	// Erstellen eines neuen Objektes mit der Angabe eines Kennzeichens 
+	// im Format Stadt-Initialen-Nummer[1-4] (z.B. WN-TH-1996) 
+	// und dem Jahr der Erstzulassung im Format JJJJ
 	cout << "Kennzeichen: ";
 	cin >> kennzeichen;
 	cout << "Jahr der Erstzulassung: ";
@@ -125,6 +132,9 @@ Fahrzeug::Fahrzeug()
 
 void Fahrzeug::Print()
 {
+	// Wird bei der Ausgabe eines bestimmten Fahrzeugs oder aller aufgerufen
+	// gibt die Grundangaben eines Fahrzeugs, wie Kennzeichen und die Erstzulassung aus
+	// danach folgt die objektspezifische Ausgabe
 	cout << endl
 		 << kennzeichen << endl;
 	cout << "Erstzulassung: \t\t" << erstzulassung << endl;
@@ -134,6 +144,11 @@ void Fahrzeug::Print()
 #pragma region Methoden PKW
 Pkw::Pkw()
 {
+	// Konstruktor ohne Parameter
+	// Hinzufügen von weiteren Attributen bei einem neuen Objekt
+	// Wurde ein PKW ausgewählt, werden erst die allgemeinen Infos abgefragt
+	// dann wird der Benutzer aufgefordert die PKW spezifischen Infos wie 
+	// Hubraum, Leistung oder die Schadstoffklasse anzugeben
 	cout << "Humbraum:\t\t";
 	cin >> hubraum;
 	cout << "Leistung:\t\t";
@@ -144,9 +159,16 @@ Pkw::Pkw()
 
 void Pkw::Print()
 {
+	// Ausgabe der PKW spezifischen Attribute
+	// Wird aufgerufen, wenn ein PKW per Suche gefunden wurde
+	// oder alle Fahrzeuge ausgegeben werden sollen
+
+	// Die Schadstoffklasse wird jeweils der Nummer zugeordnet
+	// 0=Sauber, 1=Dreckschleuder, 2=Diesel
 	const char *Klassen[3] = {"Sauber", "Dreckschleuder", "Diesel"};
 
-	// Ausgabe der Infos der Basisklasse Fahrzeug - ist unbedingt notwendig!
+	// Ausgabe der Infos der Basisklasse Fahrzeug
+	// Erst werden die Infos der Basisklasse Fahrzeug ausgegeben, dann die des PKWs
 	Fahrzeug::Print();
 
 	cout << "Typ: \t\t\tPKW\n";
@@ -172,7 +194,8 @@ Motorrad::Motorrad()
 
 void Motorrad::Print()
 {
-	// Ausgabe der Infos der Basisklasse Fahrzeug - ist unbedingt notwendig!
+	// Ausgabe der Infos der Basisklasse Fahrzeug
+	// Gleiche wie beim PKW
 	Fahrzeug::Print();
 	cout << "Typ:\t\t\tMotorrad\n";
 	cout << "Hubraum:\t\t" << hubraum << endl;
@@ -180,26 +203,29 @@ void Motorrad::Print()
 
 Fahrzeug *Motorrad::Copy()
 {
+	// liefert identische Kopie des aktuellen Objekts
 	return new Motorrad(*this);
 }
 #pragma endregion
 
-#pragma region binaerer Baum
+#pragma region Liste
 inline int Node::CmpNode(Node *node2)
 {
+	// Das Objekt wird mit einem bereits in der Liste gespeicherten Objekt vergleichen
+	// um zu entscheiden ob es davor oder danach abgespeichert werden muss
 	return strcmp(object->Kennzeichen(), node2->object->Kennzeichen());
 }
 
 Node *Node::AddObject(Fahrzeug *obj)
 {
-	Node *root = this;
-	int inserted = 0;
+	Node *root = this; // aktuelle Liste
+	int inserted = 0; // Abgleich ob Objekt nun gespeichert wurde
 	Node *newnode = new Node(obj);
 	// Erzeugen eines neuen Knotens mit einer identischen Kopie
-	// des angegebenen Objekts; ruft automatisch die jeweilige
-	// Copy-Funktion auf, siehe Konstruktor von Node
+	// des angegebenen Objekts
+	// ruft automatisch die jeweilige Copy-Funktion auf, siehe Konstruktor von Node
 
-	if (root == NULL) // Es ex. noch keine Wurzel des Baums!
+	if (root == NULL) // Es ex. noch kein Objekt in der Liste!
 	{
 		return newnode;
 	}
@@ -207,16 +233,17 @@ Node *Node::AddObject(Fahrzeug *obj)
 	{
 		if (root->CmpNode(newnode) > 0)
 		{
-			// Gehört der neue Knoten in den linken oder rechten Teilbaum?
+			// Gehört das neue Objekt in den linken oder rechten Teil der Liste?
 			if (root->left == NULL)
 			{
-				// Blattkonten gefunden?
+				// Knotenpunkt gefunden?
 				root->left = newnode;
 				inserted = 1;
 			}
 			else
 				root = root->left;
 		}
+		// Gehört das neue Objekt in den rechten Teil der Liste, wird es hier eingefügt
 		else if (root->right == NULL)
 		{
 			root->right = newnode;
@@ -231,10 +258,14 @@ Node *Node::AddObject(Fahrzeug *obj)
 Fahrzeug *Node::Suchen(char *kennzeichen)
 {
 	int suchstatus = 1;
-	Node *Start = this;
+	Node *Start = this; // Aktuelles Objekt
 
+	// Solange das aktuelle Objekt nicht leer ist und der Suchstatus ungleich 0, 
+	// suche nach dem Objekt in der Liste
 	while (Start != NULL && suchstatus != 0)
 	{
+		// Vergleiche Such-Kennzeichen mit Objekt Kennzeichen
+		// Stimmen beide Kennzeichen überein, wird suchstatus auf 0 gesetzt
 		suchstatus = strcmp(kennzeichen, Start->object->Kennzeichen());
 		if (suchstatus != 0) // Suche fotsetzen?
 		{
@@ -250,18 +281,18 @@ Fahrzeug *Node::Suchen(char *kennzeichen)
 	}
 	if (suchstatus != 0)
 	{
-		return NULL;
+		return NULL; // Kennzeichen konnte nicht gefunden werden
 	}
 	else
 	{
-		return Start->object;
+		return Start->object; // Objekt mit dem gesuchten Kennzeichen wird zurückgegeben
 	}
 }
 
 void Node::Print()
 {
 	if (left != NULL)
-		left->Print(); // Daten des li. Teilbaums ausgeben . Teilbaums ausgeben
+		left->Print(); // Daten des li. Teilbaums ausgeben
 	object->Print();   // Ausgeben der Objektdaten
 	if (right != NULL)
 		right->Print(); // Daten des re. Teilbaums ausgeben
@@ -283,7 +314,7 @@ void AusgabeMenu()
 	cout << "6 = Berechnen von Steuern fuer ein bestimmtes Fahrzeug" << endl;
 	cout << "7 = Programm beenden" << endl;
 
-	cout << "Ihre Wahl: ";
+	cout << "\nIhre Wahl: ";
 }
 
 int main()
@@ -309,7 +340,7 @@ int main()
 			cout << "\nEs wurde erfolgreich ein neues Motorrad angelegt" << endl;
 			break;
 		case 3:
-			// Suche nach Kennzeichen
+			// Suche nach Kennzeichen und deren Ausgabe
 			char kennzeichen[11];
 			Fahrzeug* Fz;
 			cout << "Kennzeichen: ";
