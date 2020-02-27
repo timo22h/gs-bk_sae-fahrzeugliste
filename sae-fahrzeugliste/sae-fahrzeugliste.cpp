@@ -9,11 +9,11 @@
 								Visual Studio Code
 		Kurze Beschreibung:
 							Bei diesem Projekt geht es um eine klene Verwaltung einer Fahrzeugliste.
-		Ausgangssituation:  
+		Ausgangssituation:
 							- Gesucht ist eine neue, übersichtliche und leicht erweiterbare Organisation
 							der verschiedenen Fahrzeugdaten
-							- zu erfassende Fahrzeugdaten von PKWs und Motorrädern sind unterschiedlich 
-							und sollen später für die Weiterverarbeitung (z.B. Steuerberechnung) auch 
+							- zu erfassende Fahrzeugdaten von PKWs und Motorrädern sind unterschiedlich
+							und sollen später für die Weiterverarbeitung (z.B. Steuerberechnung) auch
 							unterschiedlich behandelt werden können.
 							=> für alle Fahrzeugtypen: Kennzeichen, Jahr der Erstzulassung
 							=> PKWs zusätzlich: Hubraum, Leistung, Schadstoffklasse
@@ -64,7 +64,7 @@ private:
 	int schadstoffklasse;
 
 public:
-	Pkw(char *kennzeichen, int jahr, int hubraum, int leistung, short schadstoffklasse = 0) : Fahrzeug(kennzeichen, erstzulassung), hubraum(hubraum), leistung(leistung), schadstoffklasse(schadstoffklasse){};
+	Pkw(char *kennzeichen, int jahr, int hubraum, int leistung, short schadstoffklasse = 0) : Fahrzeug(kennzeichen, erstzulassung), hubraum(hubraum), leistung(leistung), schadstoffklasse(schadstoffklasse) {};
 	Pkw();
 	virtual void Print();
 	virtual Fahrzeug *Copy();
@@ -79,7 +79,7 @@ private:
 	int hubraum;
 
 public:
-	Motorrad(char *kennzeichen, int jahr, int hubraum) : Fahrzeug(kennzeichen, jahr), hubraum(hubraum){};
+	Motorrad(char *kennzeichen, int jahr, int hubraum) : Fahrzeug(kennzeichen, jahr), hubraum(hubraum) {};
 	Motorrad();
 	virtual void Print();
 	virtual Fahrzeug *Copy();
@@ -136,7 +136,7 @@ void Fahrzeug::Print()
 	// gibt die Grundangaben eines Fahrzeugs, wie Kennzeichen und die Erstzulassung aus
 	// danach folgt die objektspezifische Ausgabe
 	cout << endl
-		 << kennzeichen << endl;
+		<< kennzeichen << endl;
 	cout << "Erstzulassung: \t\t" << erstzulassung << endl;
 }
 #pragma endregion
@@ -165,7 +165,7 @@ void Pkw::Print()
 
 	// Die Schadstoffklasse wird jeweils der Nummer zugeordnet
 	// 0=Sauber, 1=Dreckschleuder, 2=Diesel
-	const char *Klassen[3] = {"Sauber", "Dreckschleuder", "Diesel"};
+	const char *Klassen[3] = { "Sauber", "Dreckschleuder", "Diesel" };
 
 	// Ausgabe der Infos der Basisklasse Fahrzeug
 	// Erst werden die Infos der Basisklasse Fahrzeug ausgegeben, dann die des PKWs
