@@ -96,14 +96,14 @@ private:
 	int CmpNode(Node *); // Vergleichen des Objektes
 
 public:
-	Node(Fahrzeug *obj)
+	Node(Fahrzeug *obj) // Konstruktor
 	{
 		object = obj->Copy();
 		left = right = NULL;
 	}
 	void Print();
-	Fahrzeug *Suchen(char *kennzeichen);
-	Node *AddObject(Fahrzeug *obj);
+	Fahrzeug *Suchen(char *kennzeichen); // Methode zum Suchen eines Objektes
+	Node *AddObject(Fahrzeug *obj); // Hinzufügen eines Objektes in die Liste
 };
 #pragma endregion
 
