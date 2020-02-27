@@ -49,8 +49,6 @@ public:
 	virtual void Print();
 	virtual Fahrzeug *Copy() = 0;
 	char *Kennzeichen() { return kennzeichen; };
-	//virtual double Steuer()=0;
-	//virtual int TUEV()=0;
 };
 #pragma endregion
 
@@ -309,10 +307,7 @@ void AusgabeMenu()
 	cout << "3 = Suchen eines bestimmten Fahrzeugs" << endl;
 	cout << "4 = Ausgabe aller Fahrzeuge" << endl;
 	cout << "5 = Loeschen eines Fahrzeugs" << endl;
-
-	// Eventuell Berechnen von Steuern
-	cout << "6 = Berechnen von Steuern fuer ein bestimmtes Fahrzeug" << endl;
-	cout << "7 = Programm beenden" << endl;
+	cout << "6 = Programm beenden" << endl;
 
 	cout << "\nIhre Wahl: ";
 }
@@ -363,9 +358,9 @@ int main()
 			// Löschen eines bestimmten Fahrzeugs anhand des Kennzeichens
 			break;
 		case 6:
-			break;
-		case 7:
 			delete root;
+			break;
+		default:
 			break;
 		}
 	} while (eingabe != NULL && eingabe != 7);
