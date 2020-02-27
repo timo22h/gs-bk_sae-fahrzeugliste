@@ -233,7 +233,7 @@ Node *Node::AddObject(Fahrzeug *obj)
 	{
 		if (root->CmpNode(newnode) > 0)
 		{
-			// Gehört das neue Objekt in den linken oder rechten Teil der Liste?
+			// Gehört das neue Objekt in den linken Teil der Liste?
 			if (root->left == NULL)
 			{
 				// Knotenpunkt gefunden?
@@ -243,7 +243,7 @@ Node *Node::AddObject(Fahrzeug *obj)
 			else
 				root = root->left;
 		}
-		// Gehört das neue Objekt in den rechten Teil der Liste, wird es hier eingefügt
+		// Gehört das neue Objekt in den rechten Teil der Liste?
 		else if (root->right == NULL)
 		{
 			root->right = newnode;
